@@ -1,16 +1,23 @@
 pipeline {
-  agent any
-  stages {
-    stage('build') {
-      steps {
-        readMavenPom(file: 'undertow-servlet/pom.xml')
-        echo 'hello'
-      }
+    agent any
+    tools { 
+        maven 'Maven 3.3.9' 
+        jdk 'jdk8' 
     }
-    stage('install') {
-      steps {
-        build 'install'
-      }
+    stages {
+        stage ('Initialize') {
+            steps {
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                ''' 
+            }
+        }
+
+        stage ('Build') {
+            steps {
+                echo 'This is a minimal pipeline.'
+            }
+        }
     }
-  }
 }
